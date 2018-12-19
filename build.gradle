@@ -3,7 +3,10 @@ apply plugin: 'eclipse'
 
 group = 'com.eric.test'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 1.8   				// 設置 JDK 版本
+compileJava.options.encoding = 'UTF-8' 		// 原始碼編譯時的編碼
+compileTestJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
 
 repositories {
 	mavenCentral()
@@ -15,4 +18,21 @@ dependencies {
 	compile 'com.amazonaws:aws-lambda-java-core:1.2.0'
 	compile 'org.springframework:spring-webmvc:5.1.1.RELEASE'
 	compile 'org.springframework:spring-context:5.1.1.RELEASE'
+}
+
+compileJava.dependsOn(clean)
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.compile + sourceSets.main.output
+    }          
+}
+
+build.dependsOn buildZip
+
+// 執行testNG測試
+test {
+	useTestNG()
 }

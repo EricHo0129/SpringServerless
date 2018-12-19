@@ -3,6 +3,10 @@ package eric.spring;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.EnumSet;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
 
 import com.amazonaws.serverless.exceptions.ContainerInitializationException;
 import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
@@ -20,6 +24,11 @@ public class StreamLambdaHandler implements RequestStreamHandler {
 		try {
 			//第一時間依照config生出handler,感覺很像Springboot
 			handler = SpringLambdaContainerHandler.getAwsProxyHandler(BeanConfig.class);
+			//加上指定的filter來包裝request的資訊
+			handler.onStartup( servletContext -> {
+				FilterRegistration.Dynamic registration = servletContext.addFilter("CognitoIdentityFilter", CognitoIdentityFilter.class);
+                registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
+			});
 		} catch (ContainerInitializationException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not initialize Spring framework", e);
