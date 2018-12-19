@@ -20,4 +20,9 @@ public class UserController {
 		result.put("name", "編號"+pid+"會員");
 		return result;
 	}
+	
+	@GetMapping("/user")
+	public Map<String, Object> getUser() throws Exception {
+		return getUser(123456L);
+	}
 }
