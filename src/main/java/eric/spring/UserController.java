@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class UserController {
 
-	@GetMapping("/user/${pid}")
+	@GetMapping("/user/{pid}")
 	public Map<String, Object> getUser(@PathParam("pid") Long pid) throws Exception {
 		Map<String, Object> result = new HashMap();
 		result.put("pid", pid);
