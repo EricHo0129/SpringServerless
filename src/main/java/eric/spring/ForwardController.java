@@ -10,11 +10,11 @@ public class ForwardController {
 
 	@GetMapping("/login")
 	public String login () throws Exception {
-		return "rerect:https://tw.yahoo.com/";
+		return "redirect:https://tw.yahoo.com/";
 	}
 	
 	@GetMapping("/logout")
 	public String logout () throws Exception {
-		return "rerect:https://24h.pchome.com.tw/";
+		return "redirect:https://24h.pchome.com.tw/";
 	}
 }
