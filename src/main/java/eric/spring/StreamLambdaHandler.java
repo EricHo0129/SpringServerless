@@ -24,11 +24,11 @@ public class StreamLambdaHandler implements RequestStreamHandler {
 		try {
 			//第一時間依照config生出handler,感覺很像Springboot
 			handler = SpringLambdaContainerHandler.getAwsProxyHandler(BeanConfig.class);
-			//加上指定的filter來包裝request的資訊
-			handler.onStartup( servletContext -> {
-				FilterRegistration.Dynamic registration = servletContext.addFilter("CognitoIdentityFilter", CognitoIdentityFilter.class);
-                registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
-			});
+			//加上指定的filter來包裝request的資訊(主要是用來做CognitoId-一種auth機制)
+//			handler.onStartup( servletContext -> {
+//				FilterRegistration.Dynamic registration = servletContext.addFilter("CognitoIdentityFilter", CognitoIdentityFilter.class);
+//                registration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), false, "/*");
+//			});
 		} catch (ContainerInitializationException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Could not initialize Spring framework", e);
