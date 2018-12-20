@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  */
 @Configuration
 @EnableWebMvc
-@Import({UserController.class})
+@Import({UserController.class,ForwardController.class})
 public class BeanConfig {
 
 	/**
