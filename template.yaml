@@ -1,0 +1,71 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  EricWeb:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: 'eric.spring.StreamLambdaHandler::handleRequest'
+      Runtime: java8
+      CodeUri: build/libs/SpringServerless-0.0.1-SNAPSHOT.jar
+      Description: ''
+      MemorySize: 256
+      Timeout: 15
+      Role: 'arn:aws:iam::188617940745:role/Delete-Account-Lambda-Role'
+      Events:
+        Schedule1:
+          Type: Schedule
+          Properties:
+            Schedule: rate(20 minutes)
+        Api1:
+          Type: Api
+          Properties:
+            Path: '/user/{pid}'
+            Method: GET
+        Api2:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api3:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api4:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api5:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api6:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api7:
+          Type: Api
+          Properties:
+            Path: /user
+            Method: GET
+        Api8:
+          Type: Api
+          Properties:
+            Path: /MyResource
+            Method: ANY
+        Api9:
+          Type: Api
+          Properties:
+            Path: /sso/logout
+            Method: GET
+        Api10:
+          Type: Api
+          Properties:
+            Path: /sso/login
+            Method: GET
+      Tags:
+        STAGE: lab

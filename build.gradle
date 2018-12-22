@@ -30,6 +30,14 @@ task buildZip(type: Zip) {
     }          
 }
 
+jar {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.compile + sourceSets.main.output
+    }          
+}
+
 build.dependsOn buildZip
 
 // 執行testNG測試
